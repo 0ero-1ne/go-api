@@ -14,3 +14,15 @@ func OpenDB(connection string) *gorm.DB {
 
 	return db
 }
+
+func CloseDB(db *gorm.DB) {
+	connection, err := db.DB()
+	if err != nil {
+		panic("Getting database connection failed: " + err.Error())
+	}
+
+	err = connection.Close()
+	if err != nil {
+		panic("Closing database connection failed: " + err.Error())
+	}
+}
