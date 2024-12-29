@@ -1,20 +1,18 @@
 package envresolver
 
 import (
-	"os"
-
 	"github.com/joho/godotenv"
+	"os"
 )
 
-func GetKey(key string) string {
-	err := godotenv.Load(".env")
+func LoadEnv(filename string) {
+	err := godotenv.Load(filename)
 
 	if err != nil {
-		return "storage.db"
+		panic(".env not found: " + err.Error())
 	}
+}
 
-	value := os.Getenv(key)
-	os.Clearenv()
-
-	return value
+func GetKey(key string) string {
+	return os.Getenv(key)
 }
